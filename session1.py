@@ -66,3 +66,17 @@ print(sum_honey(hunny_jars))
 
 hunny_jars = []
 print(sum_honey(hunny_jars))
+
+#question 6: 
+def doubled(hunny_jars):
+
+    doubled_list = []
+
+    for jar in hunny_jars:
+
+        doubled_list.append(jar * 2)
+
+    return doubled_list
+
+hunny_jars = [1, 2, 3]
+print(doubled(hunny_jars))
