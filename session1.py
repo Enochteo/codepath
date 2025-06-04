@@ -96,3 +96,116 @@ print(count_less_than(race_times, threshold))
 race_times = []
 threshold = 4
 print(count_less_than(race_times, threshold))
+
+#Problem 8
+def print_todo_list(tasks):
+    print("Pooh's To Dos:\n")
+    for i in range(0,len(tasks)):
+        print(f"{i+1}. {tasks[i]}\n")
+
+task = ["Count all the bees in the hive", "Chase all the clouds from the sky", "Think", "Stoutness Exercises"]
+print_todo_list(task)
+
+task = []
+print_todo_list(task)
+
+#question9: 
+def can_pair(item_quantities):
+
+    for qty in item_quantities:
+
+        if qty % 2 != 0:
+
+            return False
+
+    return True
+
+item_quantities = [2, 4, 6, 8]
+print(can_pair(item_quantities))
+
+item_quantities = [1, 2, 3, 4]
+print(can_pair(item_quantities))
+
+item_quantities = []
+print(can_pair(item_quantities))
+
+#Problem 10
+def split_haycorns(quantity):
+    splits = []
+    for i in range(1, quantity+1):
+        if quantity % i == 0:
+            splits.append(i)
+    return splits
+
+quantity = 6
+print(split_haycorns(quantity))
+
+quantity = 1
+print(split_haycorns(quantity))
+
+#Problem 11
+def tiggerfy(s):
+    result = ""
+    list = ['t','i','g','e','r']
+    for letter in s:
+        if letter.lower() not in list:
+            result += letter
+    return result
+s = "suspicerous"
+print(tiggerfy(s))
+
+s = "Trigger"
+print(tiggerfy(s))
+
+s = "Hunny"
+print(tiggerfy(s))
+
+# Problem 12
+def locate_thistles(items):
+
+    indices = []
+
+    for i in range(len(items)):
+
+        if items[i] == "thistle":
+
+            indices.append(i)
+
+    return indices
+
+items = ["thistle", "stick", "carrot", "thistle", "eeyore's tail"]
+print(locate_thistles(items))
+
+items = ["book", "bouncy ball", "leaf", "red balloon"]
+print(locate_thistles(items))
+
+## Advanced
+ # Problem 1
+def linear_search(lst, target):
+    for i in range(len(lst)):
+        if lst[i] == target:
+            return i
+    return -1
+
+items = ['haycorn', 'haycorn', 'haycorn', 'hunny', 'haycorn']
+target = 'hunny'
+print(linear_search(items, target))
+
+items = ['bed', 'blue jacket', 'red shirt', 'hunny']
+target = 'red balloon'
+print(linear_search(items, target))
+
+def final_value_after_operations(operations):
+    tigger = 1
+    operands = {"bouncy": 1, "trouncy":-1, "flouncy": 1, "pouncy": -1}
+    for item in operations:
+        tigger += operands[item]
+    return tigger
+
+operations = ["trouncy", "flouncy", "flouncy"]
+print(final_value_after_operations(operations))
+
+operations = ["bouncy", "bouncy", "flouncy"]
+print(final_value_after_operations(operations))
+#Looks good thanks. Hopping off the liveshare now
+# Cool catch you next time
