@@ -80,3 +80,19 @@ def doubled(hunny_jars):
 
 hunny_jars = [1, 2, 3]
 print(doubled(hunny_jars))
+
+# Question 7
+def count_less_than(race_times, threshold):
+    counts = 0
+    for count in race_times:
+        if count < threshold:
+            counts += 1
+    return counts
+
+race_times = [1, 2, 3, 4, 5, 6]
+threshold = 4
+print(count_less_than(race_times, threshold))
+
+race_times = []
+threshold = 4
+print(count_less_than(race_times, threshold))
