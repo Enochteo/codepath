@@ -1,1 +1,2 @@
-# codepath
+# Codepath
+As I also am enrolled in Codepath's very own Technical Interview Preparation Intermediate course, I would be using this repo to store the solutions to the breakout problems solved during, before and after the sessions. The questions are gotten from codepath and their website, so... extra practise.
