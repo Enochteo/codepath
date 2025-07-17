@@ -1,38 +1,38 @@
-# # Problem 1
-# def count_layers(sandwich):
-#     #print(sandwich)
-#     if len(sandwich) == 1:
-#         return 1
-#     return 1 + count_layers(sandwich[1])
+# Problem 1
+def count_layers(sandwich):
+    #print(sandwich)
+    if len(sandwich) == 1:
+        return 1
+    return 1 + count_layers(sandwich[1])
 
-# sandwich1 = ["bread", ["lettuce", ["tomato", ["bread"]]]]
-# sandwich2 = ["bread", ["cheese", ["ham", ["mustard", ["bread"]]]]]
+sandwich1 = ["bread", ["lettuce", ["tomato", ["bread"]]]]
+sandwich2 = ["bread", ["cheese", ["ham", ["mustard", ["bread"]]]]]
 
-# print(count_layers(sandwich1))
-# print(count_layers(sandwich2))
+print(count_layers(sandwich1))
+print(count_layers(sandwich2))
 
-# # Problem 2
-# def reverse_orders(orders):
-#     if len(orders) == 1:
-#         return orders[0]
-#     return reverse_orders(orders[1:]) + " " + orders[0] 
+# Problem 2
+def reverse_orders(orders):
+    if len(orders) == 1:
+        return orders[0]
+    return reverse_orders(orders[1:]) + " " + orders[0] 
 
 
-# print(reverse_orders(["Bagel", "Sandwich",  "Coffee"]))
+print(reverse_orders(["Bagel", "Sandwich",  "Coffee"]))
 
-# # Problem 3  
-# def can_split_coffee(coffee, n):
-#     if len(coffee) == 1:
-#         if coffee[0] % n != 0:
-#             return False
-#         else:
-#             return True
-#     return coffee[0] % n == 0 and can_split_coffee(coffee[1:], n)
+# Problem 3  
+def can_split_coffee(coffee, n):
+    if len(coffee) == 1:
+        if coffee[0] % n != 0:
+            return False
+        else:
+            return True
+    return coffee[0] % n == 0 and can_split_coffee(coffee[1:], n)
 
-# print(can_split_coffee([4, 4, 8], 2))
-# print(can_split_coffee([5, 10, 15], 4))
-# print(can_split_coffee([5, 12, 16], 4))
-# print(can_split_coffee([4, 12, 16], 4))
+print(can_split_coffee([4, 4, 8], 2))
+print(can_split_coffee([5, 10, 15], 4))
+print(can_split_coffee([5, 12, 16], 4))
+print(can_split_coffee([4, 12, 16], 4))
 
 # Problem 4
 class Node:
@@ -116,3 +116,61 @@ sandwich_c = Node('Bread')
 
 print_linked_list(merge_orders(sandwich_a, sandwich_b))
 print_linked_list(merge_orders(sandwich_a, sandwich_c))
+
+# Problem 6
+def evaluate_ternary_expression_iterative(expression):
+    stack = []
+    for char in reversed(expression):
+        if stack and stack[-1] == "?":
+            stack.pop()
+            true_exp = stack.pop()
+            stack.pop()
+            false_exp = stack.pop()
+            if char == "T":
+                stack.append(true_exp)
+            else:
+                stack.append(false_exp)
+        else:
+            stack.append(char)
+    return stack[0]
+
+
+
+print(evaluate_ternary_expression_iterative("T?2:3"))
+print(evaluate_ternary_expression_iterative("F?1:T?4:5"))
+print(evaluate_ternary_expression_iterative("T?T?F:5:3"))
+
+print("evaluate_ternary_expression_recursive")
+
+def evaluate_ternary_expression_recursive(expression):
+    def helper(i):
+        # Base case: return a digit or boolean value if it's just that
+        if i >= len(expression) or expression[i] not in 'TF?' or (expression[i] in 'TF' and (i+1 >= len(expression) or expression[i+1] != '?')):
+            return expression[i], i
+        # Current character should be a condition (either 'T' or 'F')
+        condition = expression[i]
+        i += 2  # Skip over '?' after the condition
+        
+        # Recursively evaluate the true_expression
+        true_result, i = helper(i)
+        
+        # Skip over the ':' separating true and false expressions
+        i += 1
+        
+        # Recursively evaluate the false_expression
+        false_result, i = helper(i)
+        
+        # Return the appropriate result based on the condition
+        if condition == 'T':
+            return true_result, i
+        else:
+            return false_result, i
+    
+    # Start the recursive evaluation from the first character
+    result, _ = helper(0)
+    return result
+    
+print(evaluate_ternary_expression_recursive("T?T?F:5:3"))
+print(evaluate_ternary_expression_iterative("T?2:3"))
+print(evaluate_ternary_expression_iterative("F?1:T?4:5"))
+print(evaluate_ternary_expression_iterative("T?T?F:5:3"))
