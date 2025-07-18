@@ -145,8 +145,9 @@ print("evaluate_ternary_expression_recursive")
 def evaluate_ternary_expression_recursive(expression):
     def helper(i):
         # Base case: return a digit or boolean value if it's just that
-        if i >= len(expression) or expression[i] not in 'TF?' or (expression[i] in 'TF' and (i+1 >= len(expression) or expression[i+1] != '?')):
+        if i >= len(expression) or expression[i] not in 'TF?':
             return expression[i], i
+        
         # Current character should be a condition (either 'T' or 'F')
         condition = expression[i]
         i += 2  # Skip over '?' after the condition

@@ -48,43 +48,7 @@
 
 #[5,7,7,8,8,10], 8
 # Problem 3
-def find_frequency_positions(transmissions, target_code):
-    
-    def helper_first(l, r):
-        last_elem = r
-        if l >= r:
-            return last_elem
-        mid = (l+r)//2
-        if transmissions[mid] == target_code:
-            return helper_first(l, mid)
-        elif transmissions[mid] > target_code:
-            return helper_first(l, mid-1)
-        else:
-            return helper_first(mid+1, r)
-    def helper_last(l,r):
-        first_elem = l
-        if l >= r:
-            return first_elem
-        mid = (l+r)//2
-        if transmissions[mid] == target_code:
-            return helper_last(mid, r)
-        elif transmissions[mid] > target_code:
-            return helper_last(l, mid-1)
-        else:
-            return helper_last(mid+1, r)
-        
-    begin = helper_first(0, len(transmissions))
-    end = helper_last(0, len(transmissions))
-    if begin == end and transmissions[begin] != target_code:
-        return (-1, -1)
-        
 
-    return (begin, end)
-
-print(find_frequency_positions([5,7,7,8,8,10], 8))
-print(find_frequency_positions([5,7,7,8,8,10], 6))
-print(find_frequency_positions([], 0))
-print('iterative')
 def find_frequency_iterative(transmissions, target_code):
 
     # Edge casesm in case that the transmissions array either only have one or zero length
@@ -159,21 +123,46 @@ print(find_frequency_iterative([5,7,7,8,8,10], 8))
 print(find_frequency_iterative([5,7,7,8,8,10], 6))
 print(find_frequency_iterative([], 0))
 
-# [5,5,5,5]
-#  l  m  r
-# binary search
-# we use binary search to find the number,
-# when we find the mid m== target_code
-    # curively search the left part - beginning
-    # recursively call the right - end
-# return (begining, end)
+
+def find_frequency_recursive(transmissions, target_code):
+    if not transmissions:
+        return (-1, -1)
+    def helper1(l,r):
+        if l > r:
+            return -1
+        mid = (l + r)//2
+        if transmissions[mid] == target_code:
+            if mid == 0 or transmissions[mid-1] < target_code:
+                return mid
+            else:
+                return helper1(l, mid-1)
+        elif transmissions[mid] < target_code:
+            return helper1(mid+1, r)
+        else:
+            return helper1(l, mid-1)
+    def helper2(l,r):
+        if l > r:
+            return -1
+        mid = (l + r)//2
+        if transmissions[mid] == target_code:
+            if mid == len(transmissions) - 1 or transmissions[mid + 1] > target_code:
+                return mid
+            return helper2(mid+1, r)
+        elif transmissions[mid] < target_code:
+            return helper2(mid+1, r)
+        else:
+            return helper2(l, mid-1)
+    tups = (helper1(0, len(transmissions)-1), helper2(0, len(transmissions)-1))
+    return tups
+
+print('recursive')
+print(find_frequency_recursive([5,7,7,8,8,10], 8))
+print(find_frequency_recursive([5,7,7,8,8,10], 6))
+print(find_frequency_recursive([], 0))
 
 
-# [5,5,5,5]
-#  l  m  r
-# binary search
-# we use binary search to find the number,
-# when we find the mid m== target_code
-    # curively search the left part - beginning
-    # recursively call the right - end
-# return (begining, end)
+# [1,2,3,3,3,3,4]
+#  l m r  m
+#      l
+# [1]
+# [1,1]       
