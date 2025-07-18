@@ -1,4 +1,5 @@
 # Problem 1
+print("Problem 1")
 def check_stock(inventory, part_id):
     def find_item(left, right):
         if left > right:
@@ -32,6 +33,7 @@ print(check_stock([1, 2, 5, 12, 20], 100))
 
 
 # Problem 1 - Iteratively
+print("Problem 1 - Iteratively")
 def check_stock(inventory, part_id):
     l, r = 0, len(inventory)-1
     while l<=r:
@@ -49,7 +51,7 @@ print(check_stock([1, 2, 5, 20, 12], 100))
 
 [5,7,7,8,8,10], 8
 # Problem 3
-
+print("Problem 3")
 def find_frequency_iterative(transmissions, target_code):
 
     # Edge casesm in case that the transmissions array either only have one or zero length
@@ -161,9 +163,35 @@ print(find_frequency_recursive([5,7,7,8,8,10], 8))
 print(find_frequency_recursive([5,7,7,8,8,10], 6))
 print(find_frequency_recursive([], 0))
 
+# Problem 4
 
-# [1,2,3,3,3,3,4]
-#  l m r  m
-#      l
-# [1]
-# [1,1]       
+# binary search problem
+#PLAN
+# The idea is that if mid is greater we want to search the left
+# if mid is lesser let binary search cover - search right
+# we return if mid is greater and mid == l
+print("Problem 4")
+def next_greatest_letter(letters, target):
+    def helper(l, r, candidate):
+        if l > r:
+            return candidate if candidate else letters[0]
+        #print(letters[mid])
+        mid = (l+r)//2
+        if letters[mid] >= target:
+            candidate = letters[mid]
+            return helper(l, mid-1, candidate)
+        if letters[mid] < target:
+            return helper(mid+1, r, candidate)
+    return helper(0, len(letters)-1, None)
+
+# letters = ['a', 'a', 'b', 'c', 'c', 'c', 'e', 'h', 'w']
+
+# print(next_greatest_letter(letters, 'a'))
+# print(next_greatest_letter(letters, 'd'))
+# print(next_greatest_letter(letters, 'y'))
+
+letters = [1,2,4,6,8,9,11,12]
+print(next_greatest_letter(letters, 3))
+
+# Problem 5
+print("Problem 5")
