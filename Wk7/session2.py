@@ -1,52 +1,53 @@
-# def check_stock(inventory, part_id):
-#     def find_item(left, right):
-#         if left > right:
-#             return False
-#         mid = (left + right)  // 2
+# Problem 1
+def check_stock(inventory, part_id):
+    def find_item(left, right):
+        if left > right:
+            return False
+        mid = (left + right)  // 2
         
-#         if inventory[mid] == part_id:
-#             return True
-#         elif inventory[mid] > part_id:
-#             return find_item(left, mid-1)
-#         else:
-#             return find_item(mid+1, right)
+        if inventory[mid] == part_id:
+            return True
+        elif inventory[mid] > part_id:
+            return find_item(left, mid-1)
+        else:
+            return find_item(mid+1, right)
         
-#     return find_item(0, len(inventory)-1)
+    return find_item(0, len(inventory)-1)
         
-# print(check_stock([1, 2, 5, 12, 20], 20))
-# print(check_stock([1, 2, 5, 12, 20], 100))
-# # Plan
-# # binary search
-# # recursive
-# # helper function - parameters # l, r,
-# #   if l > r - base case 
-# #   find mid
-# #   if mid is part_id
-# #       return True
-# #   if part id is less than mis
-# #       recursively left
-# #   if greater
-# #       recursively call right
-# #   return False 
+print(check_stock([1, 2, 5, 12, 20], 20))
+print(check_stock([1, 2, 5, 12, 20], 100))
+# Plan
+# binary search
+# recursive
+# helper function - parameters # l, r,
+#   if l > r - base case 
+#   find mid
+#   if mid is part_id
+#       return True
+#   if part id is less than mis
+#       recursively left
+#   if greater
+#       recursively call right
+#   return False 
 
 
-# # Problem 2 - Iteratively
-# def check_stock(inventory, part_id):
-#     l, r = 0, len(inventory)-1
-#     while l<=r:
-#         mid = (l+r)//2
-#         if inventory[mid] == part_id:
-#             return True
-#         elif inventory[mid] < part_id:
-#             l = mid + 1
-#         else:
-#             r = mid -1
-#     return False
+# Problem 1 - Iteratively
+def check_stock(inventory, part_id):
+    l, r = 0, len(inventory)-1
+    while l<=r:
+        mid = (l+r)//2
+        if inventory[mid] == part_id:
+            return True
+        elif inventory[mid] < part_id:
+            l = mid + 1
+        else:
+            r = mid -1
+    return False
 
-# print(check_stock([1, 2, 5, 20, 12], 20))
-# print(check_stock([1, 2, 5, 20, 12], 100))
+print(check_stock([1, 2, 5, 20, 12], 20))
+print(check_stock([1, 2, 5, 20, 12], 100))
 
-#[5,7,7,8,8,10], 8
+[5,7,7,8,8,10], 8
 # Problem 3
 
 def find_frequency_iterative(transmissions, target_code):
