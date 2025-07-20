@@ -197,10 +197,31 @@ print(next_greatest_letter(letters, 3))
 print("Problem 5")
 # binary search
 def find_closest_planets(planets, target_distance, k):
-    pass
+    l = 0
+    r = len(planets) - 1
+    while r - l >= k:
+        if abs(planets[l] - target_distance) > abs(planets[r] - target_distance):
+            l += 1
+        else:
+            r -= 1
+    return planets[l:r+1]
 
 planets1 = [100, 200, 300, 400, 500]
 planets2 = [10, 20, 30, 40, 50]
 
 print(find_closest_planets(planets1, 350, 3))
 print(find_closest_planets(planets2, 25, 2))
+
+# two pointer - binary search
+# the window to initially be the array
+# compress the window till window length = (target distance) using greedy:
+    # if abs(arr[l] - target distance) > abs(arr[r]-target distance):
+    #   move l
+    # else
+    #   move r
+    # 
+# return the list slice from l to r+1 
+
+# Time comp. -> O(N - K) avg O(N)
+# space -> O(1) not counting return
+
