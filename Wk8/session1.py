@@ -1,3 +1,4 @@
+# Problem 1 & 2
 class TreeNode:
     def __init__(self, value, left=None, right=None):
         self.val = value
@@ -32,3 +33,25 @@ print(right_vine_recursive(ivy2))
 
 print(right_vine_iterative(ivy1))
 print(right_vine_iterative(ivy2))
+
+#Problem 3
+print("Problem 3")
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def survey_tree(root):
+    node_list = []
+    def postorder(root, nodes):
+        if not root:
+            return
+        postorder(root.left, nodes)
+        postorder(root.right, nodes)
+        nodes.append(root.val)
+    postorder(root, node_list)
+    return node_list
+magnolia = TreeNode("Root", TreeNode("Node1", TreeNode("Leaf1")), TreeNode("Node2", TreeNode("Leaf2"), TreeNode("Leaf3")))
+
+print(survey_tree(magnolia))
