@@ -1,4 +1,5 @@
 # Problem 1 & 2
+print("Problem 1")
 class TreeNode:
     def __init__(self, value, left=None, right=None):
         self.val = value
@@ -105,3 +106,30 @@ root.right.left = TreeNode(10)
 root.right.right = TreeNode(2)
 
 print(calculate_yield(root))
+
+# Problem 5
+print("problem 5")
+
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def get_most_specific(taxonomy):
+    specific = []
+    def dfs(root, nodes):
+        if not root:
+            return
+        if not root.left and not root.right:
+            nodes.append(root.val)
+        dfs(root.left, nodes)
+        dfs(root.right, nodes)
+    dfs(taxonomy, specific)
+    return specific
+plant_taxonomy = TreeNode("Plantae", 
+                          TreeNode("Non-flowering", TreeNode("Mosses"), TreeNode("Ferns")),
+                                  TreeNode("Flowering", TreeNode("Gymnosperms"), 
+                                          TreeNode("Angiosperms", TreeNode("Monocots"), TreeNode("Dicots"))))
+
+print(get_most_specific(plant_taxonomy))
