@@ -195,7 +195,7 @@ print(next_greatest_letter(letters, 3))
 
 # Problem 5
 print("Problem 5")
-# binary search
+# sliding window
 def find_closest_planets(planets, target_distance, k):
     l = 0
     r = len(planets) - 1
@@ -208,11 +208,13 @@ def find_closest_planets(planets, target_distance, k):
 
 planets1 = [100, 200, 300, 400, 500]
 planets2 = [10, 20, 30, 40, 50]
+planets3 = [1,2,3,4,5,6,7,8,9]
 
 print(find_closest_planets(planets1, 350, 3))
 print(find_closest_planets(planets2, 25, 2))
+print(find_closest_planets(planets3, 9, 4))
 
-# two pointer - binary search
+# two pointer - sliding window
 # the window to initially be the array
 # compress the window till window length = (target distance) using greedy:
     # if abs(arr[l] - target distance) > abs(arr[r]-target distance):
@@ -225,3 +227,46 @@ print(find_closest_planets(planets2, 25, 2))
 # Time comp. -> O(N - K) avg O(N)
 # space -> O(1) not counting return
 
+# binary search solution:
+# find the index of the closest or target distance
+#  create a closest list
+# while closestlist.length != k
+    # expand from closest with two pointers based on which is closer
+    # append to closest list
+# return closest list
+print("BINARY SEARCH")
+def find_closest_planet2(planets, target_distance, k):
+    def binary_search(l, r):
+        if l >= r:
+            return l
+        mid = (l+r)//2
+        if planets[mid] > target_distance:
+            return binary_search(l, mid)
+        else:
+            return binary_search(mid + 1, r) 
+    
+    closest_index = binary_search(0, len(planets)-1)
+    l = r = closest_index
+    closest_list = []
+    while len(closest_list) != k:
+        if l < 0:
+            closest_list.append(planets[r])
+            r += 1
+        elif r > len(planets) - 1:
+            closest_list.append(planets[l])
+            l -= 1 
+        elif abs(planets[l] - target_distance) > abs(planets[r] - target_distance):
+            closest_list.append(planets[l])
+            l -= 1
+        else:
+            closest_list.append(planets[r])
+            r -= 1
+    return sorted(closest_list)
+        
+planets1 = [100, 200, 300, 400, 500]
+planets2 = [10, 20, 30, 40, 50]
+planets3 = [1,2,3,4,5,6,7,8,9]
+
+print(find_closest_planet2(planets1, 350, 3))
+print(find_closest_planet2(planets2, 25, 2))
+print(find_closest_planet2(planets3, 9, 4))
