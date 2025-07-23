@@ -74,3 +74,34 @@ inventory = TreeNode(40,
                             TreeNode(10, TreeNode(1), TreeNode(30)))
 
 print(sum_inventory(inventory))
+
+# Problem 5
+print("Problem 5")
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def calculate_yield(root):
+  if not root.left and not root.right:
+      return root.val
+  left_num = calculate_yield(root.left)
+  right_num = calculate_yield(root.right)
+  operand = root.val
+  if operand == "+":
+      return left_num + right_num
+  elif operand == "-":
+      return left_num - right_num
+  else:
+      return left_num * right_num
+  
+root = TreeNode("+")
+root.left = TreeNode("-")
+root.right = TreeNode("*")
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(2)
+root.right.left = TreeNode(10)
+root.right.right = TreeNode(2)
+
+print(calculate_yield(root))
