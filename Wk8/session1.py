@@ -1,0 +1,34 @@
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def right_vine_iterative(root):
+    right_nodes = []
+    while root:
+        right_nodes.append(root.val)
+        root = root.right
+    return right_nodes
+
+def right_vine_recursive(root):
+    right_nodes = []
+    def helper(root, right):
+        if not root:
+            return
+        right.append(root.val)
+        helper(root.right, right)
+    helper(root, right_nodes)
+    return right_nodes
+
+ivy1 = TreeNode("Root", 
+                TreeNode("Node1", TreeNode("Leaf1")),
+                TreeNode("Node2", TreeNode("Leaf2"), TreeNode("Leaf3")))
+
+ivy2 = TreeNode("Root", TreeNode("Node1", TreeNode("Leaf1")))
+
+print(right_vine_recursive(ivy1))
+print(right_vine_recursive(ivy2))
+
+print(right_vine_iterative(ivy1))
+print(right_vine_iterative(ivy2))
