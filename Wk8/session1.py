@@ -133,3 +133,27 @@ plant_taxonomy = TreeNode("Plantae",
                                           TreeNode("Angiosperms", TreeNode("Monocots"), TreeNode("Dicots"))))
 
 print(get_most_specific(plant_taxonomy))
+
+# Problem 5
+print("problem 5")
+
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def count_old_growth(root, threshold):
+    if not root:
+        return 0
+    if root.val > threshold:
+        return 1 + count_old_growth(root.left, threshold) + count_old_growth(root.right, threshold)
+    else:
+        return 0 + count_old_growth(root.left, threshold) + count_old_growth(root.right, threshold) 
+    
+
+forest = TreeNode(100, 
+                  TreeNode(1200, TreeNode(20)),
+                          TreeNode(1500, TreeNode(700), TreeNode(2600)))
+
+print(count_old_growth(forest, 1000))
