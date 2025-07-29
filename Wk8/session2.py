@@ -16,8 +16,6 @@ def print_tree(root):
     while result and result[-1] is None:
         result.pop()
     print(result)
-
-
 # # Tree Node class
 # class TreeNode:
 #   def __init__(self, value, key=None, left=None, right=None):
@@ -156,4 +154,40 @@ collection = build_tree(values)
 
 # Using print_tree() function at the top of page
 print_tree(add_plant(collection, "Aloe"))
+
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def remove_plant(collection, name):
+    if not collection:
+        return collection
+    if collection.val < name:
+        collection.right = remove_plant(collection.right, name)
+    elif collection.val > name:
+        collection.left = remove_plant(collection.left, name)
+    else:
+        if not collection.left and not collection.right:
+            return None
+        elif not collection.left:
+            return collection.right
+        elif not collection.right:
+            return collection.left
+        else:
+            new_node = min_val_right_sub(collection.right)
+            collection.val = new_node.val
+            collection.right = remove_plant(collection.right, new_node.val)
+    return collection
+def min_val_right_sub(node):
+    current = node
+    while current.left:
+        current = current.left
+    return current
+values = ["Money Tree", "Hoya", "Pilea", None, "Ivy", "Orchid", "ZZ Plant"]
+collection = build_tree(values)
+
+# Using print_tree() function at the top of page
+print_tree(remove_plant(collection, "Pilea"))
 
