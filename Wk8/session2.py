@@ -1,5 +1,23 @@
 from collections import deque 
 
+def print_tree(root):
+    if not root:
+        return "Empty"
+    result = []
+    queue = deque([root])
+    while queue:
+        node = queue.popleft()
+        if node:
+            result.append(node.val)
+            queue.append(node.left)
+            queue.append(node.right)
+        else:
+            result.append(None)
+    while result and result[-1] is None:
+        result.pop()
+    print(result)
+
+
 # # Tree Node class
 # class TreeNode:
 #   def __init__(self, value, key=None, left=None, right=None):
@@ -117,3 +135,24 @@ garden = build_tree(values)
 print(find_flower(garden, "Lilac"))  
 print(find_flower(garden, "Sunflower")) 
 # print(ord('Lilac') < ord('Lily'))
+
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def add_plant(collection, name):
+    if not collection:
+        return TreeNode(name)
+    if name < collection.val:
+        collection.left = add_plant(collection.left, name)
+    else:
+        collection.right = add_plant(collection.right, name)
+    return collection
+
+values = ["Money Tree", "Fiddle Leaf Fig", "Snake Plant"]
+collection = build_tree(values)
+
+# Using print_tree() function at the top of page
+print_tree(add_plant(collection, "Aloe"))
