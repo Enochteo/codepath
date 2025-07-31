@@ -244,3 +244,42 @@ print(next_order2.val)
 print(next_order3.val)
 print(next_order4.val)
     
+
+class TreeNode():
+    def __init__(self, sweetness, left=None, right=None):
+        self.val = sweetness
+        self.left = left
+        self.right = right
+
+def add_row(display, flavor, depth):
+    if not display:
+        return
+    if depth == 1:
+        temp = display
+        display = TreeNode(flavor)
+        display.left = temp
+        return display
+    q = deque([display])
+    i = 0
+    while q:
+        i+=1
+        for _ in range(len(q)):
+            node = q.popleft()
+            if i == depth - 1:
+                left = node.left
+                right = node.right
+                node.left, node.right = TreeNode(flavor), TreeNode(flavor)
+                node.left.left, node.right.right = left, right
+            else:
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+    return display
+
+
+cupcake_flavors = ["Chocolate", "Vanilla", "Strawberry", None, None, "Chocolate", "Red Velvet"]
+display = build_tree(cupcake_flavors)
+
+# Using print_tree() function included at top of page
+print_tree(add_row(display, "Mocha", 3))
