@@ -200,86 +200,100 @@ def print_tree(root):
 # print_tree(larger_order_tree(orders))
 
 # Problem 4
-class TreeNode():
-     def __init__(self, order, left=None, right=None):
-        self.val = order
-        self.left = left
-        self.right = right
+# class TreeNode():
+#      def __init__(self, order, left=None, right=None):
+#         self.val = order
+#         self.left = left
+#         self.right = right
 
-def larger_order_tree(order_tree, order):
-    if not order_tree:
-        return order_tree
-    q = deque([order_tree])
-    while q:
-        level_length = len(q)
-        for i in range(level_length):
-            node = q.popleft()
-            if node == order:
-                if i == level_length - 1:
-                    return TreeNode(None)
-                else:
-                    return q.popleft()
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
-    return TreeNode(None)
-cupcakes = TreeNode("Cupcakes")
-macaron = TreeNode("Macaron")
-cookies = TreeNode("Cookies")
-cake = TreeNode("Cake")
-eclair = TreeNode("Eclair")
-croissant = TreeNode("Croissant")
+# def larger_order_tree(order_tree, order):
+#     if not order_tree:
+#         return order_tree
+#     q = deque([order_tree])
+#     while q:
+#         level_length = len(q)
+#         for i in range(level_length):
+#             node = q.popleft()
+#             if node == order:
+#                 if i == level_length - 1:
+#                     return TreeNode(None)
+#                 else:
+#                     return q.popleft()
+#             if node.left:
+#                 q.append(node.left)
+#             if node.right:
+#                 q.append(node.right)
+#     return TreeNode(None)
+# cupcakes = TreeNode("Cupcakes")
+# macaron = TreeNode("Macaron")
+# cookies = TreeNode("Cookies")
+# cake = TreeNode("Cake")
+# eclair = TreeNode("Eclair")
+# croissant = TreeNode("Croissant")
 
-cupcakes.left, cupcakes.right = macaron, cookies
-macaron.right = cake
-cookies.left, cookies.right = eclair, croissant
+# cupcakes.left, cupcakes.right = macaron, cookies
+# macaron.right = cake
+# cookies.left, cookies.right = eclair, croissant
 
-next_order1 = larger_order_tree(cupcakes, cake)
-next_order2 = larger_order_tree(cupcakes, cookies)
-next_order3 = larger_order_tree(cupcakes, eclair)
-next_order4 = larger_order_tree(cupcakes, cake)
-print(next_order1.val)
-print(next_order2.val)
-print(next_order3.val)
-print(next_order4.val)
+# next_order1 = larger_order_tree(cupcakes, cake)
+# next_order2 = larger_order_tree(cupcakes, cookies)
+# next_order3 = larger_order_tree(cupcakes, eclair)
+# next_order4 = larger_order_tree(cupcakes, cake)
+# print(next_order1.val)
+# print(next_order2.val)
+# print(next_order3.val)
+# print(next_order4.val)
     
 
+# class TreeNode():
+#     def __init__(self, sweetness, left=None, right=None):
+#         self.val = sweetness
+#         self.left = left
+#         self.right = right
+
+# def add_row(display, flavor, depth):
+#     if not display:
+#         return
+#     if depth == 1:
+#         temp = display
+#         display = TreeNode(flavor)
+#         display.left = temp
+#         return display
+#     q = deque([display])
+#     i = 0
+#     while q:
+#         i+=1
+#         for _ in range(len(q)):
+#             node = q.popleft()
+#             if i == depth - 1:
+#                 left = node.left
+#                 right = node.right
+#                 node.left, node.right = TreeNode(flavor), TreeNode(flavor)
+#                 node.left.left, node.right.right = left, right
+#             else:
+#                 if node.left:
+#                     q.append(node.left)
+#                 if node.right:
+#                     q.append(node.right)
+#     return display
+
+
+# cupcake_flavors = ["Chocolate", "Vanilla", "Strawberry", None, None, "Chocolate", "Red Velvet"]
+# display = build_tree(cupcake_flavors)
+
+# # Using print_tree() function included at top of page
+# print_tree(add_row(display, "Mocha", 3))
+
+# Problem 6
 class TreeNode():
     def __init__(self, sweetness, left=None, right=None):
         self.val = sweetness
         self.left = left
         self.right = right
 
-def add_row(display, flavor, depth):
-    if not display:
-        return
-    if depth == 1:
-        temp = display
-        display = TreeNode(flavor)
-        display.left = temp
-        return display
-    q = deque([display])
-    i = 0
-    while q:
-        i+=1
-        for _ in range(len(q)):
-            node = q.popleft()
-            if i == depth - 1:
-                left = node.left
-                right = node.right
-                node.left, node.right = TreeNode(flavor), TreeNode(flavor)
-                node.left.left, node.right.right = left, right
-            else:
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-    return display
-
-
-cupcake_flavors = ["Chocolate", "Vanilla", "Strawberry", None, None, "Chocolate", "Red Velvet"]
-display = build_tree(cupcake_flavors)
-
-# Using print_tree() function included at top of page
-print_tree(add_row(display, "Mocha", 3))
+def max_icing_difference(root):
+    if not root:
+        return 0
+    
+    return max(max_icing_difference(root), max_icing_difference(root.left), max_icing_difference(root.right))
+print('done')
