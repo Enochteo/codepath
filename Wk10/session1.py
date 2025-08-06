@@ -12,3 +12,20 @@ flights2 = [[1, 2], [], [0], [2]]
 
 print(bidirectional_flights(flights1))
 print(bidirectional_flights(flights2))
+
+def find_center(terminals):
+    map = {}
+    for ter in terminals:
+        for t in ter:
+            if t in map:
+                map[t] += 1
+            else:
+                map[t] = 1
+    for t, c in map.items():
+        if c > 1:
+            return t
+terminals1 = [[1,2],[2,3],[4,2]]
+terminals2 = [[1,2],[5,1],[1,3],[1,4]]
+
+print(find_center(terminals1))
+print(find_center(terminals2))
