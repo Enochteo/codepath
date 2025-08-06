@@ -37,3 +37,33 @@ terminals2 = [[1,2],[5,1],[1,3],[1,4]]
 
 print(find_center(terminals1))
 print(find_center(terminals2))
+
+# Problem 3
+def get_all_destinations(flights, start):
+    res = []
+    visited = set()
+    def dfs(state):
+        for s in flights[state]:
+            if s not in visited:
+                visited.add(s)
+                res.append(s)
+                dfs(s)
+    visited.add(start)
+    dfs(start)
+    return res
+
+
+flights = {
+    "Tokyo": ["Sydney"],
+    "Sydney": ["Tokyo", "Beijing"],
+    "Beijing": ["Mexico City", "Helsinki"],
+    "Helsinki": ["Cairo", "New York"],
+    "Cairo": ["Helsinki", "Reykjavik"],
+    "Reykjavik": ["Cairo", "New York"],
+    "Mexico City": ["Sydney"],
+    "New York": []   
+}
+
+print(get_all_destinations(flights, "Beijing"))
+print(get_all_destinations(flights, "Helsinki"))
+print(get_all_destinations(flights, "New York"))
