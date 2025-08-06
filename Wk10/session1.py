@@ -14,7 +14,15 @@ print(bidirectional_flights(flights1))
 print(bidirectional_flights(flights2))
 
 def find_center(terminals):
-    map = {}
+    a, b = terminals[0]
+    c, d = terminals[1]
+
+    # The center must be the common node
+    if a == c or a == d:
+        return a
+    else:
+        return b
+    """map = {}
     for ter in terminals:
         for t in ter:
             if t in map:
@@ -23,7 +31,7 @@ def find_center(terminals):
                 map[t] = 1
     for t, c in map.items():
         if c > 1:
-            return t
+            return t"""
 terminals1 = [[1,2],[2,3],[4,2]]
 terminals2 = [[1,2],[5,1],[1,3],[1,4]]
 
