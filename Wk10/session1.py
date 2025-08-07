@@ -99,7 +99,7 @@ flights = {
 print(get_all_destinations(flights, "Beijing"))
 print(get_all_destinations(flights, "Helsinki"))
 
-
+# Problem 5
 def find_itinerary(boarding_passes):
     map = {}
     res = []
@@ -117,6 +117,40 @@ def find_itinerary(boarding_passes):
         
     return res
 
+boarding_passes_1 = [
+                    ("JFK", "ATL"),
+                    ("SFO", "JFK"),
+                    ("ATL", "ORD"),
+                    ("LAX", "SFO")]
+
+boarding_passes_2 = [
+                    ("LAX", "DXB"),
+                    ("DFW", "JFK"),
+                    ("LHR", "DFW"),
+                    ("JFK", "LAX")]
+
+print(find_itinerary(boarding_passes_1))
+print(find_itinerary(boarding_passes_2))
+
+
+def find_itinerary(boarding_passes):
+    map = {}
+    arrs = set()
+    for dept, arr in boarding_passes:
+        map[dept] = arr
+        arrs.add(arr)
+    for s in map:
+        if s not in arrs:
+            start = s
+    q = deque([start])
+    res = []
+    while q:
+        for _ in range(len(q)):
+            curr = q.popleft()
+            if curr in map:
+                q.append(map[curr])
+            res.append(curr)
+    return res
 boarding_passes_1 = [
                     ("JFK", "ATL"),
                     ("SFO", "JFK"),
