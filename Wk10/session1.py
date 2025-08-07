@@ -215,3 +215,43 @@ flights = [
 print(counting_flights(flights, 0, 2))  
 print(counting_flights(flights, 0, 4))
 print(counting_flights(flights, 4, 0))
+
+# Problem 8
+
+# Plan
+# dfs
+# use a visited set to prevent infinite calls
+# iterate over each airport (airport is the index if each row) and only 
+#   increse no of regions if its not yet visited
+# run a dfs on the airport while adding its connected airport to visited
+def num_airline_regions(is_connected):
+    n = len(is_connected)
+    regions = 0
+    visited = set()
+    def dfs(airport):
+        for neighbour in range(len(is_connected[airport])):
+            if is_connected[airport][neighbour] == 1 and neighbour not in visited:
+                visited.add(neighbour)
+                dfs(neighbour)
+
+    for airport in range(n):
+        if airport not in visited:
+            dfs(airport)
+            visited.add(airport)
+            regions += 1
+    return regions
+is_connected1 = [
+    [1, 1, 0],
+    [1, 1, 0],
+    [0, 0, 1]
+]
+
+is_connected2 = [
+    [1, 0, 0, 1],
+    [0, 1, 1, 0],
+    [0, 1, 1, 0],
+    [1, 0, 0, 1]
+]
+
+print(num_airline_regions(is_connected1))
+print(num_airline_regions(is_connected2)) 
