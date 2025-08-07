@@ -170,39 +170,6 @@ def find_itinerary(boarding_passes):
     dfs(start)
     return res[::-1]
 
-from collections import defaultdict
-
-def find_itinerary(boarding_passes):
-    # Step 1: Build the graph (adjacency list)
-    flights = defaultdict(list)
-    
-    # Create adjacency list where each airport has a list of destinations
-    for departure, arrival in boarding_passes:
-        flights[departure].append(arrival)
-    
-    # Step 2: Sort the destinations for each departure airport (optional)
-    # This ensures we visit in lexicographical order if required
-    for airport in flights:
-        flights[airport].sort(reverse=True)
-
-    # Step 3: Perform DFS and build the itinerary
-    result = []
-    
-    def dfs(airport):
-        # Visit all the destinations for the current airport
-        while flights[airport]:
-            next_flight = flights[airport].pop()
-            dfs(next_flight)
-        # Once all destinations are visited, add the airport to the result
-        result.append(airport)
-
-    # Step 4: Start DFS from the starting airport
-    start_airport = boarding_passes[0][0]  # Assumption: we start from the first departure
-    dfs(start_airport)
-    
-    # Step 5: The itinerary will be in reverse order due to DFS, so reverse the result
-    return result[::-1]
-    
 boarding_passes_1 = [
                     ("JFK", "ATL"),
                     ("SFO", "JFK"),
@@ -217,3 +184,34 @@ boarding_passes_2 = [
 
 print(find_itinerary(boarding_passes_1))
 print(find_itinerary(boarding_passes_2))
+
+
+# Problem 7
+def counting_flights(flights, i, j):
+    q = deque([i])
+    total_flights = 0
+    visited = set()
+    while q:
+        for _ in range(len(q)):
+            curr = q.popleft()
+            if curr == j:
+                return total_flights
+            for f in range(len(flights[curr])):
+                if flights[curr][f] == 1 and f not in visited:
+                    visited.add(f)
+                    q.append(f)
+        total_flights += 1
+    return -1
+        
+
+flights = [
+    [0, 1, 1, 0, 0], # Airport 0
+    [0, 0, 1, 0, 0], # Airport 1
+    [0, 0, 0, 1, 0], # Airport 2
+    [0, 0, 0, 0, 1], # Airport 3
+    [0, 0, 0, 0, 0]  # Airport 4
+]
+
+print(counting_flights(flights, 0, 2))  
+print(counting_flights(flights, 0, 4))
+print(counting_flights(flights, 4, 0))
